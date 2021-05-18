@@ -7,9 +7,8 @@ import math
 def lidar_talker():
     pub = rospy.Publisher('/lidar/joint1_position_controller/command', Float64, queue_size=10)
     rospy.init_node('lidar_talker', anonymous=True)
-    rate = rospy.Rate(10) # 10hz
+    rate = rospy.Rate(1) # 10hz
     while not rospy.is_shutdown():
-        #hello_str = "hello world %s" % rospy.get_time()
         #position = math.pi/3
         position = 3.14 * math.sin(rospy.get_time()/100*5)
         rospy.loginfo(position)

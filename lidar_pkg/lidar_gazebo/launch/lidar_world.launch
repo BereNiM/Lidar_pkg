@@ -3,7 +3,7 @@
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
-  <arg name="gui" default="true"/>
+  <arg name="gui" default="false"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
 
@@ -12,10 +12,11 @@
     <arg name="world_name" value="$(find lidar_gazebo)/worlds/lidar.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
-    <arg name="paused" value="$(arg paused)"/>
+    <!-- <arg name="paused" value="$(arg paused)"/> -->
+    <!-- <arg name="use_sim_time" value="false"/> -->
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="headless" value="$(arg headless)"/>
-    <arg name="verbose" value="true"/>
+    <arg name="verbose" value="false"/>
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
@@ -24,9 +25,12 @@
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-urdf -model lidar -param robot_description"/>
+    args="-urdf -model lidar -param robot_description -J joint2 0.0"/>
 
-  <!-- ros_control rrbot launch file -->
-  <!--include file="$(find rrbot_control)/launch/rrbot_control.launch" /-->
+  <!-- ros_control lidar launch file -->
+  <include file="$(find lidar_control)/launch/lidar_control.launch" />
 
 </launch>
+
+<!-- rosrun gazebo_ros spawn_model -file `echo $GAZEBO_MODEL_PATH`/home/berenice/catkin_ws/src/lidar_pkg/lidar_gazebo/worlds/Cuarto/model.sdf -sdf -model Cuarto -y 1.0 -x -5.0 -->
+<!-- rosservice call gazebo/delete_model '{model_name: Cuarto}' -->
