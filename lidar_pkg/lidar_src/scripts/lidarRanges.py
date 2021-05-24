@@ -10,7 +10,6 @@ class Visualiser:
     def __init__(self):
         self.fig, self.ax = plt.subplots()
         self.ln, = plt.plot([0.0], [0.0], 'ro')
-        # self.ln, = plt.plot([0.0, 1.0], [5.0, 7.0], 'b-')
         
         self.ln, = plt.plot([], [], 'r-')
         self.x_data, self.y_data = [] , []

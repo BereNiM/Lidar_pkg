@@ -4,12 +4,14 @@
 
   <!-- Constants for robot dimensions -->
   <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+  <xacro:property name="mass" value="3.527" /> <!-- arbitrary value for mass -->
   <xacro:property name="width" value="1" /> <!-- Square dimensions (widthxwidth) of beams -->
   <xacro:property name="height1" value="1" /> <!-- Link 1 -->
+  <xacro:property name="mass2" value="0.048386" /> 
   <xacro:property name="width2" value="0.05" />
   <xacro:property name="length2" value="0.05" /> 
   <xacro:property name="height2" value="0.05" /> <!-- Link 2 -->
+  <xacro:property name="mass3" value="1" /> 
   <xacro:property name="width3" value="0.056" />
   <xacro:property name="length3" value="0.056" /> 
   <xacro:property name="height3" value="0.051" /> <!-- Link 3 -->
@@ -49,10 +51,12 @@
       <origin xyz="${width/2} ${-width/2} ${height1/2}" rpy="0 0 0"/>
       <mass value="${mass}"/>
       <inertia
-	  ixx="${mass / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
-	  iyy="${mass / 12.0 * (height1*height1 + width*width)}" iyz="0.0"
-	  izz="${mass / 12.0 * (width*width + width*width)}"/>
+	      ixx="1.068" iyy="1.068" izz="1.418" ixy="0.0" ixz="0.0" iyz="0.0"/>
     </inertial>
+    <!-- ixx="${mass / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass / 12.0 * (height1*height1 + width*width)}" iyz="0.0"
+	  izz="${mass / 12.0 * (width*width + width*width)}"/> -->
+    
   </link>
 
   <joint name="joint1" type="continuous">
@@ -68,7 +72,8 @@
     <collision>
       <origin xyz="0 0 ${height2/2}" rpy="0 0 0"/>
       <geometry>
-	      <box size="${width2} ${width2} ${height2}"/>
+	      <!-- <box size="${width2} ${width2} ${height2}"/> -->
+        <box size="0.0345 0.032 0.053"/>
       </geometry>
     </collision>
 
@@ -83,11 +88,12 @@
 
     <inertial>
       <origin xyz="0 0 ${height2/2}" rpy="0 0 0"/>
-      <mass value="${mass}"/>
+      <mass value="${mass2}"/>
       <inertia
-	  ixx="${mass / 12.0 * (width2*width2 + height2*height2)}" ixy="0.0" ixz="0.0"
-	  iyy="${mass / 12.0 * (height2*height2 + width2*width2)}" iyz="0.0"
-	  izz="${mass / 12.0 * (width2*width2 + width2*width2)}"/>
+      ixx="0.000013" iyy="0.000016" izz="0.000008" ixy="0.0" ixz="0.0" iyz="0.0"/>
+	  <!-- ixx="${mass2 / 12.0 * (width2*width2 + height2*height2)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass2 / 12.0 * (height2*height2 + length2*length2)}" iyz="0.0"
+	  izz="${mass2 / 12.0 * (length2*length2 + width2*width2)}"/> -->
     </inertial>
   </link>
 
@@ -103,9 +109,10 @@
   <!-- Top Link -->
   <link name="link3">
     <collision>
-      <origin xyz="0 0 ${height3/2}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${height3}" rpy="0 0 0"/>
       <geometry>
-	<box size="${length3} ${width3} ${height3}"/>
+	      <!-- <box size="${length3} ${width3} ${height3}"/> -->
+        <box size="0.056 0.056 0.051"/>
       </geometry>
     </collision>
 
@@ -119,12 +126,12 @@
     </visual>
 
     <inertial>
-      <origin xyz="0 0 ${height3/2}" rpy="0 0 0"/>
-      <mass value="${mass}"/>
+      <origin xyz="0 0 ${height3}" rpy="0 0 0"/>
+      <mass value="${mass3}"/>
       <inertia
-	  ixx="${mass / 12.0 * (width3*width3 + height3*height3)}" ixy="0.0" ixz="0.0"
-	  iyy="${mass / 12.0 * (height3*height3 + width3*width3)}" iyz="0.0"
-	  izz="${mass / 12.0 * (width3*width3 + width3*width3)}"/>
+	  ixx="${mass3 / 12.0 * (width3*width3 + height3*height3)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass3 / 12.0 * (height3*height3 + length3*length3)}" iyz="0.0"
+	  izz="${mass3 / 12.0 * (length3*length3 + width3*width3)}"/>
     </inertial>
   </link>
 
